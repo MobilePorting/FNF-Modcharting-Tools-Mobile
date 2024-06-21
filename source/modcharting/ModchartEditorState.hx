@@ -586,7 +586,8 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
         add(hideUI);
 
 
-        
+        addVirtualPad(NONE, B);
+        virtualPad.y -= 10;
     }
     #if (!SCEModchartingTools && (PSYCH && PSYCHVERSION >= "0.7.1"))
     override public function destroy() {
@@ -934,7 +935,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
         }
 
 
-        if (FlxG.keys.justPressed.ESCAPE)
+        if (virtualPad.buttonB.justPressed || FlxG.keys.justPressed.ESCAPE)
         {
             var exitFunc = function()
             {
