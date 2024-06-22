@@ -683,7 +683,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
 			    FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			    FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
             #end
-            if (virtualPad.buttonB.justPressed || FlxG.keys.justPressed.SPACE)
+            if (virtualPad.buttonX.justPressed || FlxG.keys.justPressed.SPACE)
             {
                 if (inst.playing)
                 {
