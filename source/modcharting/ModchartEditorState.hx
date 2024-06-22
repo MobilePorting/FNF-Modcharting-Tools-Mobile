@@ -588,7 +588,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
 
         #if (PSYCH && PSYCHVERSION > "0.7.3") addVirtualPad('LEFT_RIGHT', 'A_B_X_Y') #else addVirtualPad(LEFT_RIGHT, A_B_X_Y) #end;
 	addVirtualPadCamera();
-        virtualPad.y -= 15;
+        virtualPad.y -= 20;
     }
     #if (!SCEModchartingTools && (PSYCH && PSYCHVERSION >= "0.7.1"))
     override public function destroy() {
