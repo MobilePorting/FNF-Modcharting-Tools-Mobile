@@ -586,7 +586,8 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
         add(hideUI);
 
 
-        addVirtualPad(NONE, B);
+        #if (PSYCH && PSYCHVERSION > "0.7.3") addVirtualPad('LEFT_RIGHT', 'A_B_X_Y') #else addVirtualPad(LEFT_RIGHT, A_B_X_Y) #end;
+	addVirtualPadCamera();
         virtualPad.y -= 10;
     }
     #if (!SCEModchartingTools && (PSYCH && PSYCHVERSION >= "0.7.1"))
@@ -682,7 +683,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
 			    FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			    FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
             #end
-            if (FlxG.keys.justPressed.SPACE)
+            if (virtualPad.buttonB.justPressed || FlxG.keys.justPressed.SPACE)
             {
                 if (inst.playing)
                 {
@@ -717,7 +718,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
                 }
             }
             var shiftThing:Int = 1;
-            if (FlxG.keys.pressed.SHIFT)
+            if (virtualPad.buttonY.pressed || FlxG.keys.pressed.SHIFT)
                 shiftThing = 4;
             if (FlxG.mouse.wheel != 0)
             {
@@ -741,7 +742,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
                 dirtyUpdateEvents = true;
             }
     
-            if (FlxG.keys.justPressed.D || FlxG.keys.justPressed.RIGHT)
+            if (virtualPad.buttonRight.justPressed || FlxG.keys.justPressed.D || FlxG.keys.justPressed.RIGHT)
             {
                 inst.pause();
                 if(vocals != null) vocals.pause();
@@ -750,7 +751,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
                 dirtyUpdateNotes = true;
                 dirtyUpdateEvents = true;
             }
-            if (FlxG.keys.justPressed.A || FlxG.keys.justPressed.LEFT) 
+            if (virtualPad.buttonLeft.justPressed || FlxG.keys.justPressed.A || FlxG.keys.justPressed.LEFT) 
             {
                 inst.pause();
                 if(vocals != null) vocals.pause();
@@ -759,7 +760,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
                 dirtyUpdateNotes = true;
                 dirtyUpdateEvents = true;
             }
-            var holdingShift = FlxG.keys.pressed.SHIFT;
+            var holdingShift = (virtualPad.buttonY.pressed || FlxG.keys.pressed.SHIFT);
             var holdingLB = FlxG.keys.pressed.LBRACKET;
             var holdingRB = FlxG.keys.pressed.RBRACKET;
             var pressedLB = FlxG.keys.justPressed.LBRACKET;
@@ -858,7 +859,7 @@ class ModchartEditorState extends #if SCEModchartingTools states.MusicBeatState 
 
         if (FlxG.mouse.y < grid.y+grid.height && FlxG.mouse.y > grid.y) //not using overlap because the grid would go out of world bounds
         {
-            if (FlxG.keys.pressed.SHIFT)
+            if (virtualPad.buttonY.pressed || FlxG.keys.pressed.SHIFT)
                 highlight.x = FlxG.mouse.x;
             else
                 highlight.x = (Math.floor((FlxG.mouse.x-(grid.x%gridSize))/gridSize)*gridSize)+(grid.x%gridSize);
